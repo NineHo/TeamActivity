@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="wrapper">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/xiaoyou3/.mvn/wrapper" />
+      <root url="file://$PROJECT_DIR$/xiaoyou3/xiaoyou_index/.mvn/wrapper" />
+      <root url="file://$PROJECT_DIR$/xiaoyou3/xiaoyou_index/src/main/java" />
+      <root url="file://$PROJECT_DIR$/xiaoyou3/xiaoyou_index/src/test/java" />
+      <root url="file://$PROJECT_DIR$/xiaoyou3/xiaoyou_manage/.mvn/wrapper" />
+      <root url="file://$PROJECT_DIR$/xiaoyou3/xiaoyou_manage/src/main/java" />
+      <root url="file://$PROJECT_DIR$/xiaoyou3/xiaoyou_manage/src/test/java" />
+      <root url="file://$PROJECT_DIR$/xiaoyou3/xiaoyou_tools/src/main/java" />
+    </SOURCES>
+  </library>
+</component>

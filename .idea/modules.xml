@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/xiaoyou3.iml" filepath="$PROJECT_DIR$/xiaoyou3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiaoyou_index/xiaoyou_index.iml" filepath="$PROJECT_DIR$/xiaoyou_index/xiaoyou_index.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiaoyou_manage/xiaoyou_manage.iml" filepath="$PROJECT_DIR$/xiaoyou_manage/xiaoyou_manage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xiaoyou_tools/xiaoyou_tools.iml" filepath="$PROJECT_DIR$/xiaoyou_tools/xiaoyou_tools.iml" />
+    </modules>
+  </component>
+</project>
