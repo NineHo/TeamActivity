@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/xiaoyou3.iml" filepath="$PROJECT_DIR$/xiaoyou3.iml" />
       <module fileurl="file://$PROJECT_DIR$/xiaoyou_index/xiaoyou_index.iml" filepath="$PROJECT_DIR$/xiaoyou_index/xiaoyou_index.iml" />
-      <module fileurl="file://$PROJECT_DIR$/xiaoyou_manage/xiaoyou_manage.iml" filepath="$PROJECT_DIR$/xiaoyou_manage/xiaoyou_manage.iml" />
       <module fileurl="file://$PROJECT_DIR$/xiaoyou_tools/xiaoyou_tools.iml" filepath="$PROJECT_DIR$/xiaoyou_tools/xiaoyou_tools.iml" />
     </modules>
   </component>
