@@ -52,7 +52,7 @@ public class TbImgController {
         m.addAttribute("page",page);
         m.addAttribute("queryObj",queryObj);
         m.addAttribute("imgPage",imgPage);
-        return "/settings/img";
+        return "settings/img";
 
     }
 
@@ -70,7 +70,7 @@ public class TbImgController {
             tbImgService.changeStatusById(imgId,0);
         }
 
-        return "redirect:/img/getAllImg";
+        return "redirect:img/getAllImg";
     }
 
     /**
@@ -106,13 +106,13 @@ public class TbImgController {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return "redirect:/img/getAllImg";
+        return "redirect:img/getAllImg";
     }
 
     @RequestMapping("/delImgById")
     public String delImgById(@RequestParam("imgId") List<Integer> imgIds){
         tbImgService.removeByIds(imgIds);
-        return "redirect:/img/getAllImg";
+        return "redirect:img/getAllImg";
     }
 
 

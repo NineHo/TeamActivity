@@ -8,13 +8,20 @@ spring:
   devtools:
     livereload:
       enabled: false
+  spring:
+    mail:
+      host: smtp.qq.com
+      username: 1728017141@qq.com
+      password: imridytytofbdefj
+      protocol: smtp
+      default-encoding: UTF-8
 mybatis-plus:
   mapper-locations: classpath:mapper/*/*Mapper.xml
   type-aliases-package: com.lgy.*.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 server:
-  port: 8088
+  port: 8081
   servlet:
     session:
       cookie:

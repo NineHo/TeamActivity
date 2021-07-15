@@ -50,14 +50,15 @@ public class TbMonStu implements Serializable {
     private Integer monId;
 
     private TbStu tbStu;
-
+private  String name;
     private TbDonMoney tbDonMoney;
-
+private  String monName;
     private Integer sumMoney;
 
     private Integer monStatus;
 
     private Integer monType;
+
 
 
 }

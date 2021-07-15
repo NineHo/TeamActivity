@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>捐赠-查看详细</title>
+	<title>缴费-查看详细</title>
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/index.css">
 	<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
@@ -87,6 +87,7 @@
 		<div class="col-lg-2">
 			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">我要缴费</button>
 			<button class="btn btn-info btn-w-md" type="button" onclick="showMonStuByMonId()" style="margin-top: 20px;">已缴费人名单</button>
+			<button class="btn btn-info btn-w-md" type="button" id="btn_export"  onclick="showexcel()" style="margin-top: 20px;">打印excel</button>
 		</div>
 
 		<div class="btn-group btn-group-sm">
@@ -101,6 +102,13 @@ function showMonStuByMonId() {
     var monId=[[${tbMon.monId}]];
 	location.href="/mon/getMonStuById?monId="+monId;
 }
+function showexcel() {
+	location.href="http://localhost:8081/exportBillByExcel";
+}
+// $("#btn_export").click(function () {
+// 	//打开新窗口
+// 	window.open("exportBillByExcel");
+// });
 
 $("#MonStu").click(function () {
     var status=[[${tbMon.monStatus}]];

@@ -55,7 +55,7 @@ public class TbDonMoneyController {
         m.addAttribute("page",page);
         m.addAttribute("queryObj",queryObj);
 
-        return "/don_money/money-list";
+        return "don_money/money-list";
     }
 
     /**
@@ -65,7 +65,7 @@ public class TbDonMoneyController {
     @RequestMapping("/addMon")
     public String addMon(){
 
-        return "/don_money/money-add";
+        return "don_money/money-add";
     }
 
     /**
@@ -84,7 +84,7 @@ public class TbDonMoneyController {
         m.addAttribute("page",page);
         m.addAttribute("monId",monId);
         m.addAttribute("donMoney",donMoney);
-        return "/don_money/showMonStuByMonId";
+        return "don_money/showMonStuByMonId";
     }
 
     /**
@@ -97,7 +97,7 @@ public class TbDonMoneyController {
     public String delMonStuById(@RequestParam("moneyId")List<Integer> moneyIds,Integer monId){
         System.out.println(moneyIds);
         monStuService.removeByIds(moneyIds);
-        return "redirect:/mon/getMonStuById?monId="+monId;
+        return "redirect:getMonStuById?monId="+monId;
     }
 
     /**
@@ -119,7 +119,7 @@ public class TbDonMoneyController {
         System.out.println(moneyCount+"=============================");
         monStuService.save(monStu);
         //tbDonMoneyService.update(new UpdateWrapper<TbDonMoney>().set("mon_had",moneyCount).eq("mon_id",monStu.getMonId()));
-        return "redirect:/mon/getMonById?monId="+monStu.getMonId();
+        return "redirect:getMonById?monId="+monStu.getMonId();
     }
 
     /**
@@ -134,7 +134,7 @@ public class TbDonMoneyController {
         IPage<TbMonStu> monStuPage = monStuService.getAllMonStu(page,limit);
         m.addAttribute("page",page);
         m.addAttribute("monStuPage",monStuPage);
-        return "/don_money/showMonStu";
+        return "don_money/showMonStu";
     }
 
 
@@ -153,7 +153,7 @@ public class TbDonMoneyController {
         tbDonMoney.setMonTime(LocalDateTime.now());
         tbDonMoney.setMonStatus(1);
         tbDonMoneyService.save(tbDonMoney);
-        return "redirect:/mon/getAllMoney";
+        return "redirect:getAllMoney";
     }
 
     /**
@@ -166,19 +166,19 @@ public class TbDonMoneyController {
     public String getDonById(Integer monId,Model m){
         TbDonMoney tbDonMoney = tbDonMoneyService.getMonById(monId);
         m.addAttribute("tbMon",tbDonMoney);
-        return "/don_money/money-look";
+        return "don_money/money-look";
     }
 
     @RequestMapping("/updateMonById")
     public String updateMonById(TbDonMoney tbDonMoney){
         tbDonMoneyService.updateById(tbDonMoney);
-        return "redirect:/mon/getAllMoney";
+        return "redirect:mon/getAllMoney";
     }
 
     @RequestMapping("/delMonById")
     public String delMonById(@RequestParam("monId") List<Integer> monIds){
         tbDonMoneyService.removeByIds(monIds);
-        return "redirect:/mon/getAllMoney";
+        return "redirect:getAllMoney";
     }
 
 }

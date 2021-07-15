@@ -125,12 +125,12 @@ public class LoginController {
     @RequestMapping("/register")
     public String register(){
 
-        return "/register";
+        return "register";
     }
 
     @RequestMapping("/password")
     public String pwd(){
-        return "/my/my-password";
+        return "my/my-password";
     }
 
     @RequestMapping("/editPwd")
