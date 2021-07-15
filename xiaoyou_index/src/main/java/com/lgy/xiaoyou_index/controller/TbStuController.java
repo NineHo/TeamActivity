@@ -74,7 +74,7 @@ public class TbStuController {
         TbStu stu = stuService.getMyById(tbStu.getUserId());
         m.addAttribute("stu",stu);
 
-        return "/my/my-add";
+        return "my/my-add";
     }
 
     /**
@@ -104,7 +104,7 @@ public class TbStuController {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return "redirect:/index";
+        return "redirect:index";
     }
 
     /**
@@ -160,7 +160,7 @@ public class TbStuController {
 
         List<TbDon> MyDonList = donService.list(new QueryWrapper<TbDon>().eq("don_per", userId).eq("don_status",1).select("don_id","don_name","don_time"));
         m.addAttribute("MyDonList",MyDonList);
-        return "/my/my-index";
+        return "my/my-index";
     }
 
     /**
@@ -198,7 +198,7 @@ public class TbStuController {
         userRole.setUserId(tbStu.getUserId());
         userRole.setRoleId(2);
         userRoleService.save(userRole);
-        return "redirect:/login";
+        return "redirect:login";
     }
 
 

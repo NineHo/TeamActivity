@@ -48,9 +48,9 @@ public class TbActivityController {
     private ITbStuService stuService;
 
 
-
     /**
      * 分页获取所有活动
+     *
      * @param m
      * @param page
      * @param limit
@@ -58,79 +58,84 @@ public class TbActivityController {
      * @return
      */
     @RequestMapping("/getAllAct")
-    public String getAllAct(Model m, @RequestParam(defaultValue = "1") long page, @RequestParam(defaultValue = "10") long limit, QueryObj queryObj){
+    public String getAllAct(Model m, @RequestParam(defaultValue = "1") long page, @RequestParam(defaultValue = "10") long limit, QueryObj queryObj) {
         QueryWrapper<QueryObj> wrapper = new QueryWrapper<>();
         wrapper.setEntity(queryObj);
-        IPage<TbActivity> actPage = activityService.getAllAct(page,limit,wrapper);
-        m.addAttribute("actPage",actPage);
-        m.addAttribute("page",page);
-        m.addAttribute("queryObj",queryObj);
-        return "/act/act-list";
+        IPage<TbActivity> actPage = activityService.getAllAct(page, limit, wrapper);
+        m.addAttribute("actPage", actPage);
+        m.addAttribute("page", page);
+        m.addAttribute("queryObj", queryObj);
+        return "act/act-list";
     }
 
     /**
      * 根据id获取活动信息
+     *
      * @param m
      * @param acId
      * @return
      */
     @RequestMapping(value = "getActById")
-    public String getActById(Model m,Integer acId){
-        TbActivity act=activityService.getActById(acId);
-        m.addAttribute("act",act);
-        return "/act/act-look";
+    public String getActById(Model m, Integer acId) {
+        TbActivity act = activityService.getActById(acId);
+        m.addAttribute("act", act);
+        return "act/act-look";
     }
 
     /**
      * 报名参加活动
+     *
      * @param acId
      * @param session
      * @return
      */
     @RequestMapping("/addStuToAct")
     @ResponseBody
-    public Integer addStuToAct(Integer acId, HttpSession session){
-        TbStu tbStu= (TbStu) session.getAttribute("tbStu");
+    public Integer addStuToAct(Integer acId, HttpSession session) {
+        TbStu tbStu = (TbStu) session.getAttribute("tbStu");
         TbActivityJoin activityJoin = new TbActivityJoin();
         activityJoin.setUserId(tbStu.getUserId());
         activityJoin.setAcId(acId);
         List<TbActivityJoin> activityJoins = activityJoinService.list(new QueryWrapper<TbActivityJoin>().eq("user_id", tbStu.getUserId()));
         for (TbActivityJoin join : activityJoins) {
-            if(join.getAcId().equals(acId)){
+            if (join.getAcId().equals(acId)) {
                 return 2;
             }
         }
         Integer ac_count = activityJoinService.count(new QueryWrapper<TbActivityJoin>().eq("ac_id", acId));
         TbActivity activity = activityService.getActById(acId);
-        if(ac_count.equals(activity.getAcCount())){
+        if (ac_count.equals(activity.getAcCount())) {
             return 3;
         }
         boolean b = activityJoinService.save(activityJoin);
-        if(b){
+        if (b) {
             return 1;
-        }else {
+        } else {
             return 0;
         }
     }
 
     /**
      * 跳转到创建活动的页面
+     *
      * @return
      */
     @RequestMapping("/createNewAct")
-    public String createNewAct(){
+    public String createNewAct() {
         return "act/act-add";
     }
+
     /**
      * 创建活动
+     *
      * @param tbActivity
      * @param session
      * @return
      */
     @RequestMapping("/addAct")
     @ResponseBody
-    public Integer addAct(TbActivity tbActivity,HttpSession session){
-        TbStu tbStu= (TbStu) session.getAttribute("tbStu");
+    public Integer addAct(TbActivity tbActivity, HttpSession session) {
+        TbStu tbStu = (TbStu) session.getAttribute("tbStu");
         if (tbActivity.getAcTitle() != null && !"".equals(tbActivity.getAcTitle().trim()) && tbActivity.getAcDesc() != null && !"".equals(tbActivity.getAcDesc().trim()) && tbActivity.getAcStartTime() != null && tbActivity.getAcEndTime() != null) {
             tbActivity.setAcPer(tbStu.getUserId());
             tbActivity.setAcStatus(1);
@@ -157,6 +162,7 @@ public class TbActivityController {
 
     /**
      * 查询参与活动的校友
+     *
      * @param m
      * @param acId
      * @param page
@@ -164,77 +170,84 @@ public class TbActivityController {
      * @return
      */
     @RequestMapping("/getActJoinById")
-    public String getActJoinById(Model m,Integer acId,@RequestParam(defaultValue = "1") long page, @RequestParam(defaultValue = "10") long limit){
-        IPage<TbStu> stuPage = stuService.getActJoinById(new Page<TbStu>(page,limit),acId);
-        m.addAttribute("stuPage",stuPage);
-        m.addAttribute("page",page);
-        m.addAttribute("acId",acId);
+    public String getActJoinById(Model m, Integer acId, @RequestParam(defaultValue = "1") long page, @RequestParam(defaultValue = "10") long limit) {
+        IPage<TbStu> stuPage = stuService.getActJoinById(new Page<TbStu>(page, limit), acId);
+        m.addAttribute("stuPage", stuPage);
+        m.addAttribute("page", page);
+        m.addAttribute("acId", acId);
         return "act/actStu-look";
     }
+
     /**
      * 根据id删除
+     *
      * @param acIds
      * @return
      */
     @RequestMapping("/delActById")
-    public String delActById(@RequestParam("acId") List<Integer> acIds){
+    public String delActById(@RequestParam("acId") List<Integer> acIds) {
         activityService.removeByIds(acIds);
         QueryWrapper<TbActivityJoin> wrapper = new QueryWrapper<>();
-        wrapper.in("ac_id",acIds);
+        wrapper.in("ac_id", acIds);
         activityJoinService.remove(wrapper);
-        return "redirect:act/getAllAct";
+        return "redirect:getAllAct";
     }
 
 
     /**
      * 删除加入活动的校友
+     *
      * @param userIds
      * @param acId
      * @return
      */
     @RequestMapping("/delActJoinById")
-    public String delActJoinById(@RequestParam("userId") List<Integer> userIds,Integer acId){
+    public String delActJoinById(@RequestParam("userId") List<Integer> userIds, Integer acId) {
         QueryWrapper<TbActivityJoin> wrapper = new QueryWrapper<>();
-        wrapper.in("user_id",userIds);
+        wrapper.in("user_id", userIds);
         activityJoinService.remove(wrapper);
-        return "redirect:act/getActJoinById?acId="+acId;
+        return "redirect:act/getActJoinById?acId=" + acId;
     }
 
 
     /**
      * 根据Id更新活动
+     *
      * @param tbActivity
      * @return
      */
     @RequestMapping("/updateActById")
     @ResponseBody
     public Integer updateActById(TbActivity tbActivity) {
-//        activityService.updateById(tbActivity);
-//        TbActivityJoin activityJoin = new TbActivityJoin();
-//        activityJoin.setUserId(tbActivity.getAcPer());
-//        activityJoin.setAcId(tbActivity.getAcId());
-//        boolean b = activityJoinService.save(activityJoin);
-//        if (b) {
-        TbStu tbStu = stuService.getOne(new QueryWrapper<TbStu>().select("name", "email").eq("user_id", tbActivity.getAcPer()));
-        if (tbActivity.getAcStatus() == 1 && tbStu.getEmail() != null) {
-            try {
-                MailUtils.sendMail(tbStu.getEmail(), "您已成功创建活动", " ");
-                return 1;
-            } catch (MessagingException e) {
-                e.printStackTrace();
-                return 2;
+        activityService.updateById(tbActivity);
+        TbActivityJoin activityJoin = new TbActivityJoin();
+        activityJoin.setUserId(tbActivity.getAcPer());
+        activityJoin.setAcId(tbActivity.getAcId());
+        boolean b = activityJoinService.save(activityJoin);
+        if (b) {
+            TbStu tbStu = stuService.getOne(new QueryWrapper<TbStu>().select("name", "email").eq("user_id", tbActivity.getAcPer()));
+            if (tbActivity.getAcStatus() == 1 && tbStu.getEmail() != null) {
+                try {
+                    MailUtils.sendMail(tbStu.getEmail(), "您已成功创建活动", " ");
+                    return 1;
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                    return 2;
+                }
             }
+            if (tbActivity.getAcStatus() == 2 && tbStu.getEmail() != null) {
+                try {
+                    MailUtils.sendMail(tbStu.getEmail(), "你申请的校友活动未通过审核", "请重新申请活动");
+                    return 1;
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                    return 2;
+                }
+            }
+
+
         }
-//            if (tbActivity.getAcStatus() == 2 && tbStu.getEmail() != null) {
-//                try {
-//                    MailUtils.sendMail(tbStu.getEmail(), "你申请的校友活动未通过审核", "请重新申请活动");
-//                    return 1;
-//                } catch (MessagingException e) {
-//                    e.printStackTrace();
-//                    return 2;
-//                }
-//            }
 
-      return 2;}}
-//    }}
-
+        return 2;
+    }
+}
